@@ -52,6 +52,17 @@ derive_clock_uncertainty
 # Set False Path
 #**************************************************************
 
+# Mechanical switches are asynchronous external inputs.
+set_false_path -from [get_ports {SW[*]}]
+# And same for other asynchronous external inputs like KEY
+set_false_path -from [get_ports {KEY[*]}]
+# 7-segment outputs are not source-synchronous interfaces.
+# Exclude them from output timing requirements.
+set_false_path -to [get_ports {HEX0[*] HEX1[*] HEX2[*] HEX3[*] HEX4[*] HEX5[*]}]
+# Same for LEDR or VGA
+set_false_path -to [get_ports {LEDR[*]}]
+set_false_path -to [get_ports {VGA_B[*] VGA_G[*] VGA_R[*] VGA_HS VGA_VS}]
+
 
 
 #**************************************************************
@@ -81,6 +92,4 @@ derive_clock_uncertainty
 #**************************************************************
 # Set Load
 #**************************************************************
-
-
 
